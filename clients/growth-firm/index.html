@@ -14,6 +14,10 @@
   --amber:#B7791F;--amber-bg:#FFFBEB;--green:#276749;--green-bg:#F0FFF4;--radius:8px;
 }
 body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--canvas);color:var(--ink);line-height:1.7;font-size:15px;}
+.tip{border-bottom:1px dotted var(--cyan);color:inherit;cursor:help;position:relative;white-space:nowrap;}
+.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:12px;font-weight:400;line-height:1.5;padding:8px 12px;border-radius:6px;width:220px;white-space:normal;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:100;font-family:'DM Sans',sans-serif;}
+.tip::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--navy);pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:100;}
+.tip:hover::after,.tip:hover::before,.tip.show::after,.tip.show::before{opacity:1;}
 .report-wrap{display:flex;min-height:100vh}
 .sidebar{width:240px;flex-shrink:0;background:var(--navy);position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 0;}
 .sidebar-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:16px;}
@@ -45,7 +49,7 @@ body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--canvas);c
     <div class="nav-item" onclick="scrollTo('site-tech')"><span class="nav-dot"></span>Technical health</div>
     <div class="nav-item" onclick="scrollTo('site-seo')"><span class="nav-dot"></span>Search &amp; visibility</div>
     <div class="nav-item" onclick="scrollTo('site-analytics')"><span class="nav-dot"></span>Analytics &amp; tracking</div>
-    <div class="nav-item" onclick="scrollTo('site-ux')"><span class="nav-dot"></span>Content &amp; UX</div>
+    <div class="nav-item" onclick="scrollTo('site-ux')"><span class="nav-dot"></span>Content &amp; <span class="tip" data-tip="User Experience — how easy and pleasant a website or app is to use.">UX</span></div>
   </div>
   <div class="nav-section">
     <div class="nav-label">Portal</div>
@@ -148,7 +152,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
 
 <div class="score-grid">
   <div class="score-card"><div class="domain">Website — Performance (mobile)</div><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill red-fill" style="width:45%"></div></div><div class="score-num status-red">45/100</div></div><div class="score-status status-red">Poor — below minimum threshold</div></div>
-  <div class="score-card"><div class="domain">Website — SEO</div><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill amber-fill" style="width:52%"></div></div><div class="score-num status-amber">52/100</div></div><div class="score-status status-amber">Needs significant work</div></div>
+  <div class="score-card"><div class="domain">Website — <span class="tip" data-tip="Search Engine Optimisation — the practice of making your website more visible in Google search results.">SEO</span></div><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill amber-fill" style="width:52%"></div></div><div class="score-num status-amber">52/100</div></div><div class="score-status status-amber">Needs significant work</div></div>
   <div class="score-card"><div class="domain">Website — Accessibility</div><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill amber-fill" style="width:58%"></div></div><div class="score-num status-amber">58/100</div></div><div class="score-status status-amber">Needs work</div></div>
   <div class="score-card"><div class="domain">Website — Pages indexed by Google</div><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill red-fill" style="width:25%"></div></div><div class="score-num status-red">2 of 8</div></div><div class="score-status status-red">Critical — most pages invisible to search</div></div>
   <div class="score-card"><div class="domain">Portal — Analytics coverage</div><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill red-fill" style="width:0%"></div></div><div class="score-num status-red">Zero</div></div><div class="score-status status-red">No tracking in place anywhere</div></div>
@@ -157,26 +161,26 @@ section{margin-bottom:56px;scroll-margin-top:32px}
 
 <section id="site-tech">
   <div class="section-header"><span class="section-num">01</span><span class="section-title">Website — Technical health</span></div>
-  <div class="intro-block">The website runs on <strong>WordPress with Elementor 4.0.8</strong>, hosted at Afrihost. Elementor is a known contributor to poor Core Web Vitals — bloated JS, synchronous font loading, and uncompressed images compound the problem. The findings below are not edge cases. They are the reason only 2 of 8 pages appear in Google's index.</div>
+  <div class="intro-block">The website runs on <strong><span class="tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> with <span class="tip" data-tip="A popular "tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> page-builder plugin — convenient to use but known to slow down websites significantly.">Elementor</span> 4.0.8</strong>, hosted at <span class="tip" data-tip="A South African web hosting provider — suitable for basic sites but lacks the performance infrastructure of platforms like "tip" data-tip="A modern cloud hosting platform optimised for fast, reliable website delivery — used by Maru Online for all client sites.">Vercel</span>.">Afrihost</span>. <span class="tip" data-tip="A popular "tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> page-builder plugin — convenient to use but known to slow down websites significantly.">Elementor</span> is a known contributor to poor <span class="tip" data-tip="Google's set of measurements for how fast and smooth a webpage loads — scores affect your Google ranking.">Core Web Vitals</span> — bloated JS, synchronous font loading, and uncompressed images compound the problem. The findings below are not edge cases. They are the reason only 2 of 8 pages appear in Google's index.</div>
 
   <div class="finding" onclick="toggle(this)">
-    <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">Sitemap and robots.txt are not publicly accessible</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>A request to <code>growthfirm.co.za/sitemap.xml</code> and <code>growthfirm.co.za/robots.txt</code> returns a blocked response. Without a sitemap, Google cannot schedule full re-indexing. This is a direct cause of 6 out of 8 pages being absent from search results.</p><div class="detail-label">Impact</div><p>Google cannot find or index the service pages that should be driving enquiries. The business is invisible for every search term it should rank for.</p></div>
+    <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">Sitemap and <span class="tip" data-tip="A file that tells search engines which pages they can or cannot visit on your website.">robots.txt</span> are not publicly accessible</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+    <div class="finding-body"><p>A request to <code>growthfirm.co.za/<span class="tip" data-tip="A file that lists all the pages on your site, helping Google find and index them.">sitemap.xml</span></code> and <code>growthfirm.co.za/robots.txt</code> returns a blocked response. Without a sitemap, Google cannot schedule full re-indexing. This is a direct cause of 6 out of 8 pages being absent from search results.</p><div class="detail-label">Impact</div><p>Google cannot find or index the service pages that should be driving enquiries. The business is invisible for every search term it should rank for.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
-    <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">Broken footer link on every page — /who-we-are/ returns 404</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+    <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">Broken footer link on every page — /who-we-are/ returns <span class="tip" data-tip="A 'page not found' error — the link exists but the page it points to has been removed or never created.">404</span></span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
     <div class="finding-body"><p>Every page on the site links to <code>/who-we-are/</code> in the footer. That page returns a 404 on every load. Google crawls every footer link — this means Googlebot is hitting a dead URL on every single page it visits, damaging crawl budget and signalling an unreliable site.</p><div class="detail-label">Fix</div><p>Either create the page or redirect the URL. This is a 10-minute fix that should happen before anything else.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
     <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">Privacy Policy links to a null anchor — sitewide</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>Every page on the site has a Privacy Policy link in the footer. It links to <code>#</code> — it goes nowhere. Growth Firm advises SME clients on POPIA compliance. The firm's own Privacy Policy is missing. This is a direct regulatory exposure, not just a UX gap.</p></div>
+    <div class="finding-body"><p>Every page on the site has a Privacy Policy link in the footer. It links to <code>#</code> — it goes nowhere. Growth Firm advises SME clients on <span class="tip" data-tip="Protection of Personal Information Act — South Africa's data privacy law, similar to GDPR in Europe. It governs how businesses collect and store personal data.">POPIA</span> compliance. The firm's own Privacy Policy is missing. This is a direct regulatory exposure, not just a UX gap.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
-    <div class="finding-header"><span class="severity sev-warning">Warning</span><span class="finding-title">Mobile performance estimated below 50 — Elementor is the root cause</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>The homepage hero image (1440×810px PNG) is uncompressed and served without WebP conversion. On a South African 4G connection this alone pushes LCP beyond 4 seconds. Google Fonts load synchronously. The Maps iframe on the contact page has no lazy-load facade.</p><div class="detail-label">Root cause</div><p>Elementor's architecture is incompatible with modern Core Web Vitals targets. This is a structural problem that cannot be fully resolved without moving to a modern framework.</p></div>
+    <div class="finding-header"><span class="severity sev-warning">Warning</span><span class="finding-title">Mobile performance estimated below 50 — <span class="tip" data-tip="A popular "tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> page-builder plugin — convenient to use but known to slow down websites significantly.">Elementor</span> is the root cause</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+    <div class="finding-body"><p>The homepage hero image (1440×810px <span class="tip" data-tip="A common image file format. PNG files are often large and slow to load — converting to WebP significantly improves page speed.">PNG</span>) is uncompressed and served without <span class="tip" data-tip="A modern image format that loads faster than PNG or JPEG — using it improves page speed significantly.">WebP</span> conversion. On a South African 4G connection this alone pushes <span class="tip" data-tip="Largest Contentful Paint — how long it takes for the main content on a page to appear on screen. Google wants this under 2.5 seconds.">LCP</span> beyond 4 seconds. Google Fonts load synchronously. The Maps iframe on the contact page has no lazy-load facade.</p><div class="detail-label">Root cause</div><p><span class="tip" data-tip="A popular "tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> page-builder plugin — convenient to use but known to slow down websites significantly.">Elementor</span>'s architecture is incompatible with modern Core Web Vitals targets. This is a structural problem that cannot be fully resolved without moving to a modern framework.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
@@ -190,7 +194,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
 
   <div class="finding" onclick="toggle(this)">
     <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">Two service pages describe a completely different company — an energy firm</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>The Shared Service Centre and Access to Markets pages have this live meta description: <em>"Synergy Trading &amp; Projects provides innovative energy services, from solar power to energy efficiency solutions, for sustainable business operations."</em></p><p>This belongs to a different company entirely. The site was clearly built from a cloned template and this was never corrected. A corporate procurement team researching Growth Firm would see this. It should be corrected immediately.</p></div>
+    <div class="finding-body"><p>The Shared Service Centre and Access to Markets pages have this live <span class="tip" data-tip="The short summary text that appears under a page title in Google search results — it influences whether someone clicks through.">meta description</span>: <em>"Synergy Trading &amp; Projects provides innovative energy services, from solar power to energy efficiency solutions, for sustainable business operations."</em></p><p>This belongs to a different company entirely. The site was clearly built from a cloned template and this was never corrected. A corporate procurement team researching Growth Firm would see this. It should be corrected immediately.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
@@ -214,13 +218,13 @@ section{margin-bottom:56px;scroll-margin-top:32px}
   <div class="intro-block">This is the most operationally damaging finding in the entire website audit. <strong>Growth Firm is completely dark on its own digital performance.</strong></div>
 
   <div class="finding" onclick="toggle(this)">
-    <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">No GA4 tag present on any page — zero traffic visibility</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+    <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">No <span class="tip" data-tip="Google Analytics 4 — Google's free tool for tracking who visits your website, where they come from, and what they do.">GA4</span> tag present on any page — zero traffic visibility</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
     <div class="finding-body"><p>No Google Analytics 4 tag, no Google Tag Manager container, no measurement ID — across every page. Growth Firm cannot answer: how many people visit the site, where they come from, what pages they view, whether anyone has submitted the contact form, or which channels drive traffic.</p><div class="detail-label">The consequence</div><p>There is no baseline. Without a baseline, any improvement to the site is unmeasurable. Installing GA4 is the first step before anything else is touched — it creates the evidence that justifies every subsequent decision.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
     <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">No Google Search Console — no index coverage data</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>No GSC verification tag detected. Without Search Console, Growth Firm has no access to keyword impressions, click data, crawl errors, or index coverage reports from Google. The 2-of-8 indexing figure in this report is based on a manual <code>site:</code> search — the actual picture may be worse.</p></div>
+    <div class="finding-body"><p>No <span class="tip" data-tip="Google Search Console — a free Google tool that shows how your site appears in search results and flags any technical problems.">GSC</span> verification tag detected. Without Search Console, Growth Firm has no access to keyword impressions, click data, crawl errors, or index coverage reports from Google. The 2-of-8 indexing figure in this report is based on a manual <code>site:</code> search — the actual picture may be worse.</p></div>
   </div>
 </section>
 
@@ -229,7 +233,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
 
   <div class="finding" onclick="toggle(this)">
     <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">No named team members anywhere on the site</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>Growth Firm sells accounting, tax, payroll, and legal services — high-trust, high-stakes professional services. There is not a single person's name, photo, or individual credential on the site. The About page references SAICA, SAIT, IODSA, and LPC accreditations without naming who holds them. Anonymity is a conversion barrier in this category.</p></div>
+    <div class="finding-body"><p>Growth Firm sells accounting, tax, payroll, and legal services — high-trust, high-stakes professional services. There is not a single person's name, photo, or individual credential on the site. The About page references <span class="tip" data-tip="South African Institute of Chartered Accountants — the professional body for chartered accountants in South Africa.">SAICA</span>, <span class="tip" data-tip="South African Institute of Tax Professionals — the professional body for tax practitioners in South Africa.">SAIT</span>, <span class="tip" data-tip="Institute of Directors in South Africa — the professional body for company directors and governance professionals.">IODSA</span>, and <span class="tip" data-tip="Legal Practice Council — the regulatory body for legal practitioners in South Africa.">LPC</span> accreditations without naming who holds them. Anonymity is a conversion barrier in this category.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
@@ -286,18 +290,18 @@ section{margin-bottom:56px;scroll-margin-top:32px}
   <div class="section-header"><span class="section-num">07</span><span class="section-title">Portal — Technical findings</span></div>
 
   <div class="finding" onclick="toggle(this)">
-    <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">Sentry error monitoring is broken — production errors are completely invisible</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>Both Sentry CDN scripts return HTTP 503. The monitoring tool built to catch production errors is itself broken. The version referenced (8.5.0) is outdated. The development team has zero visibility into errors occurring in the live portal.</p><div class="detail-label">What this tells us</div><p>A development team on an active retainer would have caught a broken monitoring script within days of go-live. The fact that it has gone unaddressed suggests no active maintenance is in place — a question we will need to confirm directly.</p></div>
+    <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title"><span class="tip" data-tip="An error monitoring tool that alerts developers when something breaks on a live website or app.">Sentry</span> error monitoring is broken — production errors are completely invisible</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+    <div class="finding-body"><p>Both <span class="tip" data-tip="An error monitoring tool that alerts developers when something breaks on a live website or app.">Sentry</span> <span class="tip" data-tip="Content Delivery Network — a system of servers spread across the world that delivers website files faster by serving them from a location close to the user.">CDN</span> scripts return <span class="tip" data-tip="A server error code meaning the service is temporarily unavailable or not responding.">HTTP 503</span>. The monitoring tool built to catch production errors is itself broken. The version referenced (8.5.0) is outdated. The development team has zero visibility into errors occurring in the live portal.</p><div class="detail-label">What this tells us</div><p>A development team on an active retainer would have caught a broken monitoring script within days of go-live. The fact that it has gone unaddressed suggests no active maintenance is in place — a question we will need to confirm directly.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
     <div class="finding-header"><span class="severity sev-critical">Critical</span><span class="finding-title">Zero analytics inside the portal — no usage visibility</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>No GA4, GTM, or any analytics script was detected inside the portal. Growth Firm cannot answer: which of its 14 SMEs are actually logging in? Which corporate clients are engaging with their portfolio? Which compliance tasks are being completed?</p><div class="detail-label">Why this matters for scaling</div><p>Without usage data, managing 50 SMEs instead of 14 means proportionally more manual monitoring. The data that would enable Growth Firm to scale its compliance service does not exist yet.</p></div>
+    <div class="finding-body"><p>No GA4, <span class="tip" data-tip="Google Tag Manager — a tool that lets you add tracking codes to your website without touching the code directly.">GTM</span>, or any analytics script was detected inside the portal. Growth Firm cannot answer: which of its 14 SMEs are actually logging in? Which corporate clients are engaging with their portfolio? Which compliance tasks are being completed?</p><div class="detail-label">Why this matters for scaling</div><p>Without usage data, managing 50 SMEs instead of 14 means proportionally more manual monitoring. The data that would enable Growth Firm to scale its compliance service does not exist yet.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
     <div class="finding-header"><span class="severity sev-warning">Warning</span><span class="finding-title">Document expiry monitoring appears non-functional for past dates</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-    <div class="finding-body"><p>A BEE certificate with an expiry date of November 2025 — six months ago — is on file. The dashboard shows "Documents Expiring This Month: 0" and "Documents Expiring Next Month: 0". An already-expired compliance document is not being flagged. The expiry monitoring system appears to only track future dates.</p></div>
+    <div class="finding-body"><p>A <span class="tip" data-tip="Broad-Based Black Economic Empowerment — a South African government policy framework to advance economic transformation and inclusion.">BEE</span> certificate with an expiry date of November 2025 — six months ago — is on file. The dashboard shows "Documents Expiring This Month: 0" and "Documents Expiring Next Month: 0". An already-expired compliance document is not being flagged. The expiry monitoring system appears to only track future dates.</p></div>
   </div>
 
   <div class="finding" onclick="toggle(this)">
@@ -326,7 +330,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
   </div>
 
   <div class="finding" onclick="toggle(this)">
-    <div class="finding-header"><span class="severity sev-positive">Working</span><span class="finding-title">Audit log, PWA infrastructure, and clean JavaScript at page load</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+    <div class="finding-header"><span class="severity sev-positive">Working</span><span class="finding-title">Audit log, <span class="tip" data-tip="Progressive Web App — a website built with app-like features, such as working offline and being installable on a phone.">PWA</span> infrastructure, and clean JavaScript at page load</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
     <div class="finding-body"><p>The audit log records user, action type, system section, and timestamp — a compliance-ready paper trail. A Service Worker is registered, meaning PWA infrastructure exists. No JavaScript console errors were detected at page load — the application is technically stable at the foundation level.</p></div>
   </div>
 </section>
@@ -337,25 +341,25 @@ section{margin-bottom:56px;scroll-margin-top:32px}
 
   <div class="question-block">
     <div class="q-label">Question 01 — Hosting &amp; access</div>
-    <div class="q-text">Who currently manages the Afrihost hosting account for growthfirm.co.za — and does Growth Firm have direct login access to the Afrihost control panel?</div>
-    <div class="q-why">This determines whether we can access the WordPress backend and migrate the site independently, or whether a third party needs to be involved first.</div>
+    <div class="q-text">Who currently manages the <span class="tip" data-tip="A South African web hosting provider — suitable for basic sites but lacks the performance infrastructure of platforms like "tip" data-tip="A modern cloud hosting platform optimised for fast, reliable website delivery — used by Maru Online for all client sites.">Vercel</span>.">Afrihost</span> hosting account for growthfirm.co.za — and does Growth Firm have direct login access to the <span class="tip" data-tip="A South African web hosting provider — suitable for basic sites but lacks the performance infrastructure of platforms like "tip" data-tip="A modern cloud hosting platform optimised for fast, reliable website delivery — used by Maru Online for all client sites.">Vercel</span>.">Afrihost</span> control panel?</div>
+    <div class="q-why">This determines whether we can access the <span class="tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> backend and migrate the site independently, or whether a third party needs to be involved first.</div>
   </div>
 
   <div class="question-block">
     <div class="q-label">Question 02 — Netgen relationship</div>
     <div class="q-text">What is Growth Firm's current relationship with Netgen (Pty) Ltd — active support retainer, or build-and-handover with no ongoing engagement?</div>
-    <div class="q-why">The broken Sentry monitoring and unresolved content errors suggest no active maintenance is in place — but this needs to be confirmed directly. The answer determines whether Netgen needs to be involved in portal changes, or whether we work independently.</div>
+    <div class="q-why">The broken <span class="tip" data-tip="An error monitoring tool that alerts developers when something breaks on a live website or app.">Sentry</span> monitoring and unresolved content errors suggest no active maintenance is in place — but this needs to be confirmed directly. The answer determines whether Netgen needs to be involved in portal changes, or whether we work independently.</div>
   </div>
 
   <div class="question-block">
     <div class="q-label">Question 03 — Portal source code</div>
     <div class="q-text">Does Growth Firm hold the portal source code? Was a full codebase handover completed when the portal was delivered?</div>
-    <div class="q-why">The portal is a .NET/MVC application. If the source code was not handed over, configuration fixes require either Netgen's involvement or a front-end rebuild. This is a critical dependency for Phase 2 scoping.</div>
+    <div class="q-why">The portal is a <span class="tip" data-tip="A Microsoft software framework used to build web applications — this is the technical platform the portal was built on.">NET/MVC</span> application. If the source code was not handed over, configuration fixes require either Netgen's involvement or a front-end rebuild. This is a critical dependency for Phase 2 scoping.</div>
   </div>
 
   <div class="question-block">
     <div class="q-label">Question 04 — Portal hosting</div>
-    <div class="q-text">Is the portal hosted on the same Afrihost account as the website, or on a separate server? Who pays the hosting invoice?</div>
+    <div class="q-text">Is the portal hosted on the same <span class="tip" data-tip="A South African web hosting provider — suitable for basic sites but lacks the performance infrastructure of platforms like "tip" data-tip="A modern cloud hosting platform optimised for fast, reliable website delivery — used by Maru Online for all client sites.">Vercel</span>.">Afrihost</span> account as the website, or on a separate server? Who pays the hosting invoice?</div>
     <div class="q-why">Determines whether migration of the website and portal are one operation or two, and whether Growth Firm is managing both hosting costs directly.</div>
   </div>
 
@@ -384,7 +388,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
     <div class="phase-num">1</div>
     <div>
       <div class="phase-name">Immediate fixes — no rebuild required</div>
-      <div class="phase-desc">Fix the /who-we-are/ 404. Replace the Synergy Trading meta descriptions on both service pages. Create a Privacy Policy page. Remove or connect the dead social media icons. Fix the contact form token rendering. Set up Google Search Console and submit a sitemap. Set up Google Business Profile for Cube Workspace Fourways. These items require access to the WordPress backend and an hour of focused work.</div>
+      <div class="phase-desc">Fix the /who-we-are/ 404. Replace the Synergy Trading meta descriptions on both service pages. Create a Privacy Policy page. Remove or connect the dead social media icons. Fix the contact form token rendering. Set up Google Search Console and submit a sitemap. Set up Google Business Profile for Cube Workspace Fourways. These items require access to the <span class="tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> backend and an hour of focused work.</div>
       <div class="phase-meta"><span class="phase-tag">Timeline: 1–2 days</span><span class="phase-tag">Included in Phase 2 scoping</span></div>
     </div>
   </div>
@@ -393,7 +397,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
     <div class="phase-num">2</div>
     <div>
       <div class="phase-name">Website rebuild + analytics foundation</div>
-      <div class="phase-desc">Rebuild growthfirm.co.za on Next.js, deployed to Vercel. This resolves the performance problem at its root — Elementor on WordPress cannot achieve competitive Core Web Vitals. The rebuild incorporates all SEO fixes: unique meta descriptions, local SEO (Fourways, Gauteng), structured data markup, team profiles, accreditation logos on the homepage, and a single clear conversion path per page. GA4 and Google Tag Manager are installed on go-live. A "Client Portal" button is added to the main navigation. Maru hosts and manages the site on Vercel going forward.</div>
+      <div class="phase-desc">Rebuild growthfirm.co.za on <span class="tip" data-tip="A modern website framework used to build fast, high-performance sites — the same stack Maru used for Seokane Inc.">Next.js</span>, deployed to <span class="tip" data-tip="A modern cloud hosting platform optimised for fast, reliable website delivery — used by Maru Online for all client sites.">Vercel</span>. This resolves the performance problem at its root — <span class="tip" data-tip="A popular "tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> page-builder plugin — convenient to use but known to slow down websites significantly.">Elementor</span> on <span class="tip" data-tip="A widely used website platform (CMS). Easy to set up, but older WordPress sites often have performance and security issues.">WordPress</span> cannot achieve competitive Core Web Vitals. The rebuild incorporates all SEO fixes: unique meta descriptions, local SEO (Fourways, Gauteng), <span class="tip" data-tip="Information formatted in a way that helps Google understand what a page is about, enabling enhanced search result displays.">structured data</span> markup, team profiles, accreditation logos on the homepage, and a single clear conversion path per page. GA4 and Google Tag Manager are installed on go-live. A "Client Portal" button is added to the main navigation. Maru hosts and manages the site on <span class="tip" data-tip="A modern cloud hosting platform optimised for fast, reliable website delivery — used by Maru Online for all client sites.">Vercel</span> going forward.</div>
       <div class="phase-meta"><span class="phase-tag">Timeline: 4–6 weeks</span><span class="phase-tag price">R25,000–R35,000 fixed</span></div>
     </div>
   </div>
@@ -402,7 +406,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
     <div class="phase-num">3</div>
     <div>
       <div class="phase-name">Portal remediation — subject to Q&amp;A above</div>
-      <div class="phase-desc">Scope depends on the answers to questions 02–04. If Netgen is cooperative and the source code is accessible: fix the default landing routing, remove test data, update Sentry, install GA4, add loading indicators, fix mobile layout, and add top-level navigation for Compliance Tasks and Documents. If the source code is unavailable: we scope a front-end rebuild with the same data architecture underneath. Either path requires answers to the questions in section 09 before a fixed price can be confirmed.</div>
+      <div class="phase-desc">Scope depends on the answers to questions 02–04. If Netgen is cooperative and the source code is accessible: fix the default landing routing, remove test data, update <span class="tip" data-tip="An error monitoring tool that alerts developers when something breaks on a live website or app.">Sentry</span>, install GA4, add loading indicators, fix mobile layout, and add top-level navigation for Compliance Tasks and Documents. If the source code is unavailable: we scope a front-end rebuild with the same data architecture underneath. Either path requires answers to the questions in section 09 before a fixed price can be confirmed.</div>
       <div class="phase-meta"><span class="phase-tag">Timeline: scoped after Q&amp;A</span><span class="phase-tag price">Price: TBD pending access confirmation</span></div>
     </div>
   </div>
@@ -446,6 +450,19 @@ const obs=new IntersectionObserver((entries)=>{
   });
 },{threshold:0.3,rootMargin:'-10% 0px -60% 0px'});
 document.querySelectorAll('[id]').forEach(s=>obs.observe(s));
+
+document.querySelectorAll('.tip').forEach(function(el){
+  el.addEventListener('touchstart',function(e){
+    document.querySelectorAll('.tip').forEach(function(t){t.classList.remove('show')});
+    el.classList.add('show');
+    e.preventDefault();
+  });
+});
+document.addEventListener('touchstart',function(e){
+  if(!e.target.closest('.tip')){
+    document.querySelectorAll('.tip').forEach(function(t){t.classList.remove('show')});
+  }
+});
 </script>
 </body>
 </html>
