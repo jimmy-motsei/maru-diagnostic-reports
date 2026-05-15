@@ -15,8 +15,8 @@
 }
 body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--canvas);color:var(--ink);line-height:1.7;font-size:15px;}
 .tip{border-bottom:1px dotted var(--cyan);color:inherit;cursor:help;position:relative;white-space:nowrap;}
-.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:12px;font-weight:400;line-height:1.5;padding:8px 12px;border-radius:6px;width:220px;white-space:normal;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:100;font-family:'DM Sans',sans-serif;}
-.tip::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--navy);pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:100;}
+.tip::after{content:attr(data-tip);position:fixed;background:var(--navy);color:#fff;font-size:12px;font-weight:400;line-height:1.5;padding:8px 12px;border-radius:6px;width:220px;white-space:normal;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:9999;font-family:'DM Sans',sans-serif;top:var(--tip-y,0);left:var(--tip-x,0);transform:translateX(-50%);}
+.tip::before{content:'';position:fixed;border:4px solid transparent;border-top-color:var(--navy);pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:9999;top:var(--tip-arrow-y,0);left:var(--tip-x,0);transform:translateX(-50%);}
 .tip:hover::after,.tip:hover::before,.tip.show::after,.tip.show::before{opacity:1;}
 .report-wrap{display:flex;min-height:100vh}
 .sidebar{width:240px;flex-shrink:0;background:var(--navy);position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 0;}
@@ -92,8 +92,8 @@ section{margin-bottom:56px;scroll-margin-top:32px}
 .section-title{font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-0.01em;}
 .intro-block{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:32px;font-size:14px;line-height:1.8;color:var(--ink-mid);}
 .intro-block strong{color:var(--ink);font-weight:500}
-.finding{border:0.5px solid var(--border);border-radius:var(--radius);background:#fff;margin-bottom:12px;overflow:hidden;}
-.finding-header{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none;transition:background 0.1s;}
+.finding{border:0.5px solid var(--border);border-radius:var(--radius);background:#fff;margin-bottom:12px;}
+.finding-header{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none;transition:background 0.1s;border-radius:var(--radius) var(--radius) 0 0;}
 .finding-header:hover{background:rgba(0,0,0,0.02)}
 .severity{flex-shrink:0;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;padding:3px 8px;border-radius:4px;}
 .sev-critical{background:var(--red-bg);color:var(--red)}
@@ -451,18 +451,34 @@ const obs=new IntersectionObserver((entries)=>{
 },{threshold:0.3,rootMargin:'-10% 0px -60% 0px'});
 document.querySelectorAll('[id]').forEach(s=>obs.observe(s));
 
-document.querySelectorAll('.tip').forEach(function(el){
-  el.addEventListener('touchstart',function(e){
-    document.querySelectorAll('.tip').forEach(function(t){t.classList.remove('show')});
-    el.classList.add('show');
-    e.preventDefault();
-  });
-});
-document.addEventListener('touchstart',function(e){
-  if(!e.target.closest('.tip')){
-    document.querySelectorAll('.tip').forEach(function(t){t.classList.remove('show')});
+(function(){
+  function positionTip(el){
+    var rect=el.getBoundingClientRect();
+    var tipX=rect.left+rect.width/2;
+    var tipY=rect.top-10;
+    var arrowY=rect.top-2;
+    el.style.setProperty('--tip-x',tipX+'px');
+    el.style.setProperty('--tip-y',tipY+'px');
+    el.style.setProperty('--tip-arrow-y',arrowY+'px');
   }
-});
+  document.querySelectorAll('.tip').forEach(function(el){
+    el.addEventListener('mouseenter',function(){positionTip(el)});
+    el.addEventListener('touchstart',function(e){
+      document.querySelectorAll('.tip').forEach(function(t){t.classList.remove('show')});
+      positionTip(el);
+      el.classList.add('show');
+      e.preventDefault();
+    });
+  });
+  document.addEventListener('touchstart',function(e){
+    if(!e.target.closest('.tip')){
+      document.querySelectorAll('.tip').forEach(function(t){t.classList.remove('show')});
+    }
+  });
+  window.addEventListener('scroll',function(){
+    document.querySelectorAll('.tip').forEach(function(t){t.classList.remove('show')});
+  });
+})();
 </script>
 </body>
 </html>
