@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrowthIQ & Growth Firm — Partnership Framework | Maru Online</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0D1B2A;--navy-mid:#1A3A5C;--cyan:#3DB8C6;--cyan-dim:rgba(61,184,198,0.15);
+  --canvas:#FAFAF8;--ink:#0D1B2A;--ink-mid:#4A5568;--ink-light:#718096;
+  --border:rgba(13,27,42,0.1);--red:#C53030;--red-bg:#FFF5F5;
+  --amber:#B7791F;--amber-bg:#FFFBEB;--green:#276749;--green-bg:#F0FFF4;
+  --gold:#92731A;--gold-bg:#FFFBEB;--radius:8px;
+}
+body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--canvas);color:var(--ink);line-height:1.7;font-size:15px;}
+.tip{border-bottom:1px dotted var(--cyan);color:inherit;cursor:help;position:relative;white-space:nowrap;display:inline;}
+.tip-box{position:fixed;background:var(--navy);color:#fff;font-size:12px;font-weight:400;line-height:1.6;padding:9px 13px;border-radius:6px;width:230px;white-space:normal;pointer-events:none;z-index:99999;display:none;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(0,0,0,0.3);}
+.report-wrap{display:flex;min-height:100vh}
+.sidebar{width:240px;flex-shrink:0;background:var(--navy);position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 0;}
+.sidebar-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:16px;}
+.sidebar-logo .mark{font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:#fff;letter-spacing:-0.02em;}
+.sidebar-logo .sub{font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;}
+.nav-section{padding:8px 0}
+.nav-label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0 24px;margin-bottom:6px;margin-top:16px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 24px;color:rgba(255,255,255,0.55);text-decoration:none;font-size:13px;font-weight:400;cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,0.05)}
+.nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:rgba(61,184,198,0.08)}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:currentColor;opacity:0.5;}
+.nav-item.active .nav-dot{opacity:1}
+.main{flex:1;max-width:800px;padding:48px 40px}
+
+/* Cover */
+.cover{background:var(--navy);border-radius:12px;padding:48px;margin-bottom:48px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;border:1px solid rgba(61,184,198,0.15);}
+.cover::after{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;border:1px solid rgba(61,184,198,0.2);}
+.cover-eyebrow{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px;}
+.cover-title{font-family:'Fraunces',serif;font-size:36px;font-weight:500;color:#fff;line-height:1.2;letter-spacing:-0.02em;margin-bottom:8px;}
+.cover-title span{font-weight:300;font-style:italic}
+.cover-sub{color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:32px;}
+.cover-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;}
+.meta-item .label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:4px;}
+.meta-item .value{font-size:13px;color:rgba(255,255,255,0.8);font-weight:400;}
+
+/* Sections */
+section{margin-bottom:56px;scroll-margin-top:32px}
+.section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.section-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);letter-spacing:0.08em;}
+.section-title{font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-0.01em;}
+.intro-block{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:32px;font-size:14px;line-height:1.8;color:var(--ink-mid);}
+.intro-block strong{color:var(--ink);font-weight:500}
+
+/* Plain statement block */
+.statement{border-left:3px solid var(--cyan);padding:20px 24px;margin-bottom:24px;background:#fff;border-radius:0 var(--radius) var(--radius) 0;border-top:0.5px solid var(--border);border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border);}
+.statement p{font-size:15px;color:var(--ink);line-height:1.8;}
+.statement p+p{margin-top:10px;}
+.statement strong{font-weight:500;}
+
+/* Entity cards */
+.entity-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+.entity-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:24px;}
+.entity-card.primary{border-top:3px solid var(--cyan);}
+.entity-card.secondary{border-top:3px solid rgba(13,27,42,0.2);}
+.entity-label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:8px;}
+.entity-name{font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--ink);margin-bottom:12px;letter-spacing:-0.01em;}
+.entity-desc{font-size:13px;color:var(--ink-mid);line-height:1.75;}
+
+/* Phase cards */
+.phase-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;display:grid;grid-template-columns:48px 1fr;gap:20px;}
+.phase-num{font-family:'Fraunces',serif;font-size:28px;font-weight:500;color:var(--cyan);line-height:1;padding-top:2px;}
+.phase-name{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:6px;}
+.phase-entity{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.phase-entity.growthiq{background:var(--cyan-dim);color:#0a6e79;}
+.phase-entity.growthfirm{background:rgba(13,27,42,0.06);color:var(--navy-mid);}
+.phase-entity.both{background:var(--green-bg);color:var(--green);}
+.phase-desc{font-size:14px;color:var(--ink-mid);line-height:1.75;}
+.phase-deliverables{margin-top:14px;}
+.phase-deliverables .del-label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:8px;}
+.deliverable-list{display:flex;flex-direction:column;gap:6px;}
+.del-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink-mid);line-height:1.6;}
+.del-tick{flex-shrink:0;width:16px;height:16px;margin-top:2px;color:var(--cyan);}
+.phase-meta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;}
+.phase-tag{font-size:12px;font-weight:500;color:var(--ink-mid);background:var(--canvas);border:0.5px solid var(--border);border-radius:4px;padding:3px 10px;}
+.phase-tag.price{color:var(--navy);border-color:rgba(13,27,42,0.25);background:#fff;}
+.phase-tag.tbd{color:var(--amber);border-color:var(--amber);background:var(--amber-bg);}
+
+/* Fee structure */
+.fee-table{width:100%;border-collapse:collapse;margin-bottom:24px;background:#fff;border-radius:var(--radius);overflow:hidden;border:0.5px solid var(--border);}
+.fee-table th{background:var(--navy);color:rgba(255,255,255,0.7);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;padding:12px 16px;text-align:left;}
+.fee-table td{padding:14px 16px;font-size:13px;color:var(--ink-mid);border-bottom:0.5px solid var(--border);vertical-align:top;line-height:1.6;}
+.fee-table tr:last-child td{border-bottom:none;}
+.fee-table td:first-child{font-weight:500;color:var(--ink);width:35%;}
+.fee-table td.price-cell{font-family:'DM Mono',monospace;font-size:13px;color:var(--navy);font-weight:500;}
+.fee-table td.tbd-cell{font-family:'DM Mono',monospace;font-size:12px;color:var(--amber);font-weight:500;}
+.fee-note{background:var(--amber-bg);border:0.5px solid rgba(183,121,31,0.3);border-radius:var(--radius);padding:16px 20px;font-size:13px;color:var(--ink-mid);line-height:1.7;margin-bottom:24px;}
+.fee-note strong{color:var(--amber);font-weight:500;}
+
+/* Open items */
+.open-item{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px;display:grid;grid-template-columns:28px 1fr;gap:16px;align-items:flex-start;}
+.open-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);padding-top:2px;}
+.open-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.open-desc{font-size:13px;color:var(--ink-mid);line-height:1.7;}
+.open-tag{display:inline-block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;padding:2px 8px;border-radius:4px;margin-bottom:8px;}
+.open-tag.blocker{background:var(--red-bg);color:var(--red);}
+.open-tag.required{background:var(--amber-bg);color:var(--amber);}
+.open-tag.info{background:var(--cyan-dim);color:#0a6e79;}
+
+/* Next steps */
+.next-step{background:var(--navy);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px;display:grid;grid-template-columns:32px 1fr;gap:16px;align-items:flex-start;}
+.next-step-num{font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--cyan);line-height:1.2;}
+.next-step-title{font-size:14px;font-weight:500;color:#fff;margin-bottom:4px;}
+.next-step-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;}
+
+/* Context block */
+.context-block{background:var(--navy);border-radius:var(--radius);padding:24px;margin-bottom:32px;}
+.context-block .label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
+.context-block p{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.8;}
+.context-block strong{color:#fff;font-weight:500;}
+
+/* Footer */
+.footer{border-top:1px solid var(--border);padding-top:32px;margin-top:56px;font-size:12px;color:var(--ink-light);line-height:1.8;}
+
+@media(max-width:720px){
+  .sidebar{display:none}.main{padding:24px 20px}.cover{padding:28px}
+  .cover-title{font-size:26px}.cover-meta{grid-template-columns:1fr 1fr}
+  .entity-grid{grid-template-columns:1fr}.phase-card{grid-template-columns:1fr}.phase-num{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="tip-box" id="tipbox"></div>
+<div class="report-wrap">
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="mark">Maru Online</div>
+    <div class="sub">Partnership Framework</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Overview</div>
+    <div class="nav-item active" onclick="scrollTo('cover')"><span class="nav-dot"></span>Cover</div>
+    <div class="nav-item" onclick="scrollTo('partnership')"><span class="nav-dot"></span>The partnership</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">GrowthIQ</div>
+    <div class="nav-item" onclick="scrollTo('growthiq-opportunity')"><span class="nav-dot"></span>The opportunity</div>
+    <div class="nav-item" onclick="scrollTo('growthiq-phases')"><span class="nav-dot"></span>Phases &amp; deliverables</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Growth Firm</div>
+    <div class="nav-item" onclick="scrollTo('growthfirm-scope')"><span class="nav-dot"></span>Website &amp; brand</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Commercial</div>
+    <div class="nav-item" onclick="scrollTo('fees')"><span class="nav-dot"></span>Fee structure</div>
+    <div class="nav-item" onclick="scrollTo('open-items')"><span class="nav-dot"></span>Open items</div>
+    <div class="nav-item" onclick="scrollTo('next-steps')"><span class="nav-dot"></span>How we proceed</div>
+  </div>
+</nav>
+<main class="main">
+
+<div class="cover" id="cover">
+  <div class="cover-eyebrow">Maru Online — Partnership Framework</div>
+  <div class="cover-title"><span>GrowthIQ & Growth Firm —</span><br>Digital Infrastructure<br>& AI Partnership</div>
+  <div class="cover-sub">Prepared for City Seokane — Seokane Inc</div>
+  <div class="cover-meta">
+    <div class="meta-item"><div class="label">Prepared by</div><div class="value">Maru Online (Pty) Ltd</div></div>
+    <div class="meta-item"><div class="label">Date</div><div class="value">20 May 2026</div></div>
+    <div class="meta-item"><div class="label">Status</div><div class="value">Framework — for sign-off</div></div>
+  </div>
+</div>
+
+<section id="partnership">
+  <div class="section-header"><span class="section-num">01</span><span class="section-title">The partnership in plain language</span></div>
+
+  <div class="statement">
+    <p>This is a working partnership, not a vendor relationship. Maru takes ownership of the digital infrastructure, brand, and growth execution — City runs the business and the client relationships. We grow together.</p>
+    <p>The engagement covers two distinct but connected entities. <strong>GrowthIQ is the primary opportunity</strong> — a product business with a defined market and a scalable revenue model. Growth Firm is the professional services anchor that feeds and validates GrowthIQ.</p>
+  </div>
+
+  <div class="entity-grid">
+    <div class="entity-card primary">
+      <div class="entity-label">Primary engagement</div>
+      <div class="entity-name">GrowthIQ</div>
+      <div class="entity-desc">A B-BBEE <span class="tip" data-tip="Enterprise & Supplier Development — South African corporates are legally obligated under the B-BBEE Codes to spend a set % of their net profit on developing small businesses. This is the market GrowthIQ serves.">ESD</span> compliance platform. South African corporates are legally required to spend on ESD. City has a target list of 80–100 companies. The product works — the infrastructure and outreach have not. That changes here.</div>
+    </div>
+    <div class="entity-card secondary">
+      <div class="entity-label">Supporting engagement</div>
+      <div class="entity-name">Growth Firm</div>
+      <div class="entity-desc">Professional services firm — accounting, tax, payroll, legal. The website rebuild and SEO remediation addressed in the diagnostic report. Strong foundation, underperforming digital presence. Runs alongside GrowthIQ, not after it.</div>
+    </div>
+  </div>
+
+  <div class="context-block">
+    <div class="label">Why GrowthIQ leads</div>
+    <p>The ESD compliance market is not discretionary. <strong>Corporates must spend — it is a legal obligation tied to their B-BBEE scorecard.</strong> City already has the product, the domain, and 14 active clients. The 80–100 corporate target list represents a defined, reachable market. Maru's role is to build the infrastructure and execution engine that converts that list into signed contracts.</p>
+  </div>
+</section>
+
+<section id="growthiq-opportunity">
+  <div class="section-header"><span class="section-num">02</span><span class="section-title">GrowthIQ — The opportunity</span></div>
+
+  <div class="intro-block">
+    The portal at <strong>portal.growthiq.co.za</strong> was built correctly at the data layer — the problem is infrastructure, brand, and execution, not product. Previous outreach underperformed because of how it was done, not what was being sold. The three things Maru fixes: <strong>ownership</strong> (migrate off NetGen), <strong>presentation</strong> (brand, portal UX, AI layer), <strong>outreach</strong> (corporate pipeline execution).
+  </div>
+
+  <div class="statement">
+    <p>Current state: Portal hosted and controlled by a third party (NetGen). City pays R1,380/month with no active development or support in return. The source code exists — exit is viable. City owns the <code style="font-family:'DM Mono',monospace;font-size:13px;background:rgba(13,27,42,0.05);padding:2px 6px;border-radius:3px;">growthiq.co.za</code> domain. GrowthIQ as a separate company entity is not yet formally registered.</p>
+    <p>Target state: Maru takes over all digital infrastructure on a managed retainer. Portal migrated, stabilised, and enhanced. GrowthIQ positioned and presented as a credible standalone product. Corporate outreach designed and executed against City's target list using AI-powered pipeline tools.</p>
+  </div>
+</section>
+
+<section id="growthiq-phases">
+  <div class="section-header"><span class="section-num">03</span><span class="section-title">GrowthIQ — Phases &amp; deliverables</span></div>
+
+  <div class="phase-card">
+    <div class="phase-num">1</div>
+    <div>
+      <span class="phase-entity growthiq">GrowthIQ</span>
+      <div class="phase-name">Infrastructure takeover &amp; portal migration</div>
+      <div class="phase-desc">Migrate portal.growthiq.co.za off NetGen infrastructure onto Maru-managed hosting. Verify source code, establish deployment pipeline, stabilise the live environment. City's R1,380/month NetGen cost falls away. Maru takes over all infrastructure management on retainer from this point.</div>
+      <div class="phase-deliverables">
+        <div class="del-label">Deliverables</div>
+        <div class="deliverable-list">
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Portal migrated to Maru-managed infrastructure</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Source code audited and version-controlled</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>NetGen hosting dependency removed</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Uptime monitoring and error tracking installed</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Staging environment set up for safe future changes</div>
+        </div>
+      </div>
+      <div class="phase-meta">
+        <span class="phase-tag">Timeline: 1–2 weeks from source code access</span>
+        <span class="phase-tag tbd">Fee: TBD — confirmed after source code review</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-num">2</div>
+    <div>
+      <span class="phase-entity growthiq">GrowthIQ</span>
+      <div class="phase-name">Brand spin-out &amp; portal remediation</div>
+      <div class="phase-desc">Establish GrowthIQ as a standalone brand. New marketing website at growthiq.co.za — separate from Growth Firm, positioned at corporate buyers. Portal UX fixes from the diagnostic: correct default landing screen, direct navigation to compliance tasks and documents, expiry alert system, test data removal, mobile layout, error monitoring repair. Analytics installed across portal and website.</div>
+      <div class="phase-deliverables">
+        <div class="del-label">Deliverables</div>
+        <div class="deliverable-list">
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>GrowthIQ brand identity (logo, colour, typography)</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>GrowthIQ marketing website — corporate-facing, ESD compliance positioning</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Portal UX remediation (all critical findings from diagnostic)</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Analytics foundation — portal usage, client engagement tracking</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Client onboarding flow — from signed contract to active portal user</div>
+        </div>
+      </div>
+      <div class="phase-meta">
+        <span class="phase-tag">Timeline: 4–6 weeks from Phase 1 sign-off</span>
+        <span class="phase-tag tbd">Fee: TBD — confirmed at kick-off</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-num">3</div>
+    <div>
+      <span class="phase-entity growthiq">GrowthIQ</span>
+      <div class="phase-name">AI integration layer &amp; corporate outreach engine</div>
+      <div class="phase-desc">Two parallel workstreams. <strong>AI integration:</strong> automated client journey report generation, at-risk client flagging before deadlines are missed, portfolio-level insights for corporate clients — built on top of the portal's existing compliance data. <strong>Outreach engine:</strong> City's 80–100 company target list run through an AI-powered segmentation and outreach system. Personalised corporate pitch sequences, CRM pipeline, conversion tracking. Maru designs and manages the outreach; City closes the deals.</div>
+      <div class="phase-deliverables">
+        <div class="del-label">Deliverables</div>
+        <div class="deliverable-list">
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>AI-generated compliance report automation (per client, per period)</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>At-risk client alerts — proactive, not reactive</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Corporate target list segmented and sequenced for outreach</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Outreach sequences — personalised per company, ESD obligation context</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Pipeline tracking dashboard — leads, meetings, proposals, closed</div>
+        </div>
+      </div>
+      <div class="phase-meta">
+        <span class="phase-tag">Timeline: begins Phase 2 delivery + 2 weeks</span>
+        <span class="phase-tag tbd">Fee: TBD — confirmed at Phase 2 sign-off</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="growthfirm-scope">
+  <div class="section-header"><span class="section-num">04</span><span class="section-title">Growth Firm — Website &amp; brand</span></div>
+
+  <div class="intro-block">
+    Runs in parallel with GrowthIQ Phase 2. The diagnostic report covers the full findings. The rebuild addresses the root cause: <strong>WordPress/Elementor cannot deliver competitive performance on South African mobile connections.</strong> This is a rebuild, not a patch.
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-num">A</div>
+    <div>
+      <span class="phase-entity growthfirm">Growth Firm</span>
+      <div class="phase-name">Website rebuild &amp; SEO foundation</div>
+      <div class="phase-desc">Rebuild growthfirm.co.za on Next.js, hosted on Vercel. All critical diagnostic findings addressed: unique page descriptions, local search targeting (Fourways, Gauteng), team profiles, accreditation logos on homepage, working contact form, Privacy Policy, Google Analytics, Google Search Console, Google Business Profile. Clean separation between Growth Firm (professional services) and GrowthIQ (product platform).</div>
+      <div class="phase-deliverables">
+        <div class="del-label">Deliverables</div>
+        <div class="deliverable-list">
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>New website — fast, mobile-first, built for local search</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>All diagnostic critical issues resolved</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Analytics and Search Console live from day one</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>Google Business Profile set up and verified</div>
+          <div class="del-item"><svg class="del-tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3,8 6.5,11.5 13,4.5"/></svg>GrowthIQ portal linked as client login</div>
+        </div>
+      </div>
+      <div class="phase-meta">
+        <span class="phase-tag">Timeline: 4–6 weeks, runs with GrowthIQ Phase 2</span>
+        <span class="phase-tag tbd">Fee: TBD — confirmed at kick-off</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fees">
+  <div class="section-header"><span class="section-num">05</span><span class="section-title">Fee structure</span></div>
+
+  <div class="fee-note">
+    <strong>Note on pricing:</strong> Specific fees are confirmed at kick-off once the NetGen contract is reviewed, the source code is assessed, and the full scope of portal remediation is known. The framework below shows the structure. Numbers to be agreed before any work begins — no surprises.
+  </div>
+
+  <table class="fee-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Type</th>
+        <th>Fee</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Phase 1 — Infrastructure migration</td>
+        <td>Project</td>
+        <td class="tbd-cell">TBD</td>
+        <td>Confirmed after source code review. Includes NetGen exit, hosting setup, staging environment.</td>
+      </tr>
+      <tr>
+        <td>Phase 2 — GrowthIQ brand + portal remediation</td>
+        <td>Project</td>
+        <td class="tbd-cell">TBD</td>
+        <td>Quoted on fixed-price basis. 50% on kick-off, 50% on delivery.</td>
+      </tr>
+      <tr>
+        <td>Growth Firm website rebuild</td>
+        <td>Project</td>
+        <td class="tbd-cell">TBD</td>
+        <td>Runs parallel to Phase 2. Fixed price. Ref: diagnostic report Phase 2 estimate (R25,000–R35,000).</td>
+      </tr>
+      <tr>
+        <td>Phase 3 — AI integration + outreach engine</td>
+        <td>Project</td>
+        <td class="tbd-cell">TBD</td>
+        <td>Scoped after Phase 2 delivery. Includes both AI layer build and outreach campaign execution.</td>
+      </tr>
+      <tr>
+        <td>Infrastructure retainer</td>
+        <td>Monthly</td>
+        <td class="tbd-cell">TBD</td>
+        <td>Begins Phase 1 completion. Covers hosting, monitoring, security, deployments for both entities.</td>
+      </tr>
+      <tr>
+        <td>Growth upside</td>
+        <td>Performance</td>
+        <td class="tbd-cell">TBD</td>
+        <td>Maru's participation in new GrowthIQ corporate clients generated through the outreach engine. Structure TBD — to be discussed.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="statement">
+    <p><strong>Payment terms:</strong> All project work invoiced 50% upfront, 50% on delivery. Monthly retainer invoiced on the 1st. No work commences without a signed purchase order or written approval against this framework.</p>
+    <p><strong>What this replaces:</strong> City's current R1,380/month NetGen cost is absorbed into the Maru retainer from Phase 1 completion. Net new cost to City from that point is the retainer delta only.</p>
+  </div>
+</section>
+
+<section id="open-items">
+  <div class="section-header"><span class="section-num">06</span><span class="section-title">Open items — to resolve at meeting</span></div>
+
+  <div class="intro-block">These are not formalities. Until these are answered, certain fees cannot be confirmed and certain phases cannot be scoped. They need to come out of today's conversation.</div>
+
+  <div class="open-item">
+    <div class="open-num">01</div>
+    <div>
+      <span class="open-tag blocker">Blocker</span>
+      <div class="open-title">NetGen contract — is there an active agreement?</div>
+      <div class="open-desc">Does an active support or maintenance contract exist with NetGen (Pty) Ltd, and if so, what are the exit terms? This determines whether migration can happen immediately or requires a notice period. We need to see the contract or invoice — not a summary of it.</div>
+    </div>
+  </div>
+
+  <div class="open-item">
+    <div class="open-num">02</div>
+    <div>
+      <span class="open-tag blocker">Blocker</span>
+      <div class="open-title">Source code — complete and deployable?</div>
+      <div class="open-desc">City holds the source code — confirmed. What we need to verify: is the codebase complete, does it include environment configuration, and can it be deployed independently of NetGen's infrastructure? This determines Phase 1 scope and cost. A one-hour technical review of the codebase answers this immediately.</div>
+    </div>
+  </div>
+
+  <div class="open-item">
+    <div class="open-num">03</div>
+    <div>
+      <span class="open-tag required">Required</span>
+      <div class="open-title">Corporate target list — the Excel file</div>
+      <div class="open-desc">The 80–100 company list is the raw material for Phase 3. We need it to scope the outreach engine — how it's structured determines what AI segmentation and personalisation is possible. Ideally shared at today's meeting or within 48 hours.</div>
+    </div>
+  </div>
+
+  <div class="open-item">
+    <div class="open-num">04</div>
+    <div>
+      <span class="open-tag required">Required</span>
+      <div class="open-title">Commercial framework — fees and growth upside</div>
+      <div class="open-desc">The fee table above shows the structure. The specific Rand amounts need to be agreed between City and Maru before kick-off. This includes the retainer level, project fees per phase, and the growth upside participation model for new GrowthIQ corporates.</div>
+    </div>
+  </div>
+
+  <div class="open-item">
+    <div class="open-num">05</div>
+    <div>
+      <span class="open-tag info">For planning</span>
+      <div class="open-title">GrowthIQ company registration — Seokane Inc structure?</div>
+      <div class="open-desc">GrowthIQ as a company entity is not yet registered. The contracting structure — whether GrowthIQ operates under Seokane Inc or as a new entity — affects how the partnership agreement is drafted. Not a blocker for Phase 1, but needs to be resolved before Phase 2.</div>
+    </div>
+  </div>
+</section>
+
+<section id="next-steps">
+  <div class="section-header"><span class="section-num">07</span><span class="section-title">How we proceed from here</span></div>
+
+  <div class="intro-block">Three actions. That's it. Everything else flows from these.</div>
+
+  <div class="next-step">
+    <div class="next-step-num">1</div>
+    <div>
+      <div class="next-step-title">City confirms the framework in principle</div>
+      <div class="next-step-desc">A WhatsApp message, an email, or a verbal confirmation at today's meeting. We are not asking for a signed contract — we are asking for a green light to move to contracting. The open items above are confirmed at the same time.</div>
+    </div>
+  </div>
+
+  <div class="next-step">
+    <div class="next-step-num">2</div>
+    <div>
+      <div class="next-step-title">Maru raises a formal agreement and project schedule</div>
+      <div class="next-step-desc">Within 48 hours of framework approval: a simple service agreement covering Phase 1 scope and fees, a ClickUp project is opened, and a kick-off call is scheduled. The source code review happens in this window — it takes one hour and unblocks Phase 1 pricing.</div>
+    </div>
+  </div>
+
+  <div class="next-step">
+    <div class="next-step-num">3</div>
+    <div>
+      <div class="next-step-title">Phase 1 kicks off — infrastructure migration begins</div>
+      <div class="next-step-desc">On receipt of the first invoice payment and signed agreement, Phase 1 begins. City no longer has to manage NetGen. Maru holds everything from this point.</div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <p>Prepared by Maru Online (Pty) Ltd &nbsp;&middot;&nbsp; hello@maruonline.com &nbsp;&middot;&nbsp; maruonline.com</p>
+  <p style="margin-top:4px">Prepared for City Seokane — Seokane Inc / Growth Firm. This document is confidential and intended for City Seokane's use only.</p>
+  <p style="margin-top:4px">Version 1.0 &nbsp;&middot;&nbsp; 20 May 2026</p>
+</div>
+
+</main>
+</div>
+
+<script>
+function scrollTo(id){
+  var el=document.getElementById(id);
+  if(el){el.scrollIntoView({behavior:'smooth',block:'start'})}
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active')});
+  event.currentTarget.classList.add('active');
+}
+var navItems=document.querySelectorAll('.nav-item');
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      navItems.forEach(function(n){n.classList.remove('active')});
+      var id=e.target.id;
+      var match=Array.from(navItems).find(function(n){return n.getAttribute('onclick')&&n.getAttribute('onclick').includes(id)});
+      if(match)match.classList.add('active');
+    }
+  });
+},{threshold:0.3,rootMargin:'-10% 0px -60% 0px'});
+document.querySelectorAll('[id]').forEach(function(s){obs.observe(s)});
+
+(function(){
+  var box=document.getElementById('tipbox');
+  function show(el){
+    var text=el.getAttribute('data-tip');
+    if(!text)return;
+    box.textContent=text;
+    box.style.display='block';
+    var rect=el.getBoundingClientRect();
+    var bw=230;
+    var left=rect.left+rect.width/2-bw/2;
+    var top=rect.top-box.offsetHeight-10;
+    if(left<8)left=8;
+    if(left+bw>window.innerWidth-8)left=window.innerWidth-bw-8;
+    if(top<8)top=rect.bottom+8;
+    box.style.left=left+'px';
+    box.style.top=top+'px';
+  }
+  function hide(){box.style.display='none'}
+  document.querySelectorAll('.tip').forEach(function(el){
+    el.addEventListener('mouseenter',function(){show(el)});
+    el.addEventListener('mouseleave',hide);
+    el.addEventListener('touchstart',function(e){
+      if(box.style.display==='block'&&box._src===el){hide();return}
+      show(el);box._src=el;e.preventDefault();
+    });
+  });
+  document.addEventListener('touchstart',function(e){
+    if(!e.target.closest('.tip'))hide();
+  });
+  window.addEventListener('scroll',hide,{passive:true});
+})();
+</script>
+</body>
+</html>
