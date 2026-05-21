@@ -6,7 +6,7 @@
 ---
 
 ## Last Updated
-21 May 2026
+21 May 2026 — tech stack confirmed from audit findings
 
 ---
 
@@ -46,10 +46,20 @@ Partnership model, not vendor. Maru has performance upside tied to new GrowthIQ 
 ---
 
 ## Portal Tech Stack
-- **Status: UNCONFIRMED** — to be established during Phase 1 source code review
-- Not Node.js (confirmed by client)
-- Likely PHP-based given the portal's architecture and NetGen's profile — but do not assume until the codebase is reviewed
-- Sentry monitoring is installed but broken (both required files returning errors)
+- **Status: CONFIRMED** — identified during live audit session
+- **Frontend:** JavaScript SPA — ApexCharts for dashboard visualisations, Service Worker registered (PWA infrastructure)
+- **Backend:** .NET/MVC (Microsoft framework) — consistent with NetGen being an older SA enterprise dev shop
+- **Database:** Not directly confirmed, but relational compliance tracking and 10-tab SME profile structure strongly suggest Microsoft SQL Server (standard with .NET stack)
+- **Hosting:** Afrihost — shared or VPS, standard for .NET shops at this price point
+- **Error monitoring:** Sentry v8.5.0 — installed but broken
+- **Stack era:** 2015–2020 SA enterprise/mid-market pattern — solid and proven, but not built for modern tooling (analytics, CI/CD, API-first architecture)
+
+### Phase 3 Implication
+Connecting an AI layer to a .NET/SQL Server backend is doable but requires either:
+1. An API layer exposed from the .NET backend, or
+2. Direct database access (read-only for AI reporting)
+
+Confirm which exists during the Phase 1 source code review — this determines the AI integration architecture and affects Phase 3 scoping and cost.
 
 ---
 
