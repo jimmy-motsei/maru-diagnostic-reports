@@ -6,7 +6,7 @@
 ---
 
 ## Last Updated
-21 May 2026 — tech stack confirmed from audit findings
+29 May 2026 — strategic note added: champion-gap diagnosis + "Maru drives it" positioning (see end of file)
 
 ---
 
@@ -107,5 +107,45 @@ Version: 1.1 — delivered 15 May 2026
 
 ## Repo
 GitHub: https://github.com/jimmy-motsei/maru-diagnostic-reports
-Local: /Users/ramoloimotsei/code/maru-diagnostic-reports
+Local: /Users/ramoloimotsei/maru-diagnostic-reports
 Hosted: https://maru-diagnostic-reports.vercel.app
+
+---
+
+## Strategic Note — 29 May 2026 (proposal next iteration)
+
+**Trigger:** A week passed with no feedback from City Seokane on the framework/proposal.
+
+**Diagnosis — champion gap.** The deal isn't stalling on price or fit; it's stalling because
+no one on the client side has the bandwidth or mandate to *drive* it internally. City is a
+director of a busy professional-services firm — this work is important but never urgent for him,
+so it loses every week to billable work. (Caveat: a week of silence is normal SME latency, not a
+rejection signal — nudge, don't catastrophise.)
+
+**Positioning answer — "Maru drives it."** Lean into the partnership model already in this file:
+Maru becomes the *dedicated driver* and **automates away the admin** of running the profit centre
+(portal client reminders, status updates, onboarding, document requests, reporting) using Maru's
+existing Make.com + Brevo + WhatsApp automation stack. This directly fills the champion gap — City
+gets the driver he lacks, on Maru's side, not his.
+
+**Critical refinement — shrink the YES, don't grow it.** The trap is fixing a stall by adding scope.
+A bigger/more expensive proposal makes a non-responsive buyer say no by not replying. So the
+amendment must:
+- Frame "we drive it" as a **reduction in City's effort** (whitespace in his column of a RACI table
+  is the sell).
+- Lead with a **small, reversible Phase 1 pilot** (the infrastructure migration / NetGen exit is the
+  natural first slice — already scoped at R8k–R15k) + a **named Maru driver** + a target date.
+- Close with a **20-minute live walkthrough**, not another emailed document.
+
+**Proposal amendment checklist (for the working session):**
+1. Reframe cover/summary around the outcome + the "we drive it, you barely touch it" promise.
+2. Add a "Who drives this" section naming a dedicated Maru owner.
+3. Add a "How we remove the admin" section — concrete automation map (tie to Make.com/Brevo/WhatsApp).
+4. Add a RACI-lite table showing how little the client side has to do.
+5. Restructure the ask: small pilot first → managed retainer as the continuation (the retainer +
+   10–15% growth upside already in this file are the recurring-revenue engine).
+
+> Live proposal HTML lives in this repo: `clients/growth-firm/index.html` (diagnostic) and
+> `clients/growth-firm/framework/index.html` (partnership framework). Edit here, redeploy via Vercel.
+> Note: a 2026-05-29 attempt to merge this repo into maru-lead-engine was reverted — keep it standalone
+> while the engagement is live.
