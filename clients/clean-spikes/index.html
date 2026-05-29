@@ -121,11 +121,6 @@ section{margin-bottom:56px;scroll-margin-top:32px}
 <!-- MAIN -->
 <main class="main">
 
-  <!-- DRAFT BANNER — remove when finalised -->
-  <div class="draft-banner">
-    ⚠️ Draft — internal use only. Not shared with client.
-  </div>
-
   <!-- COVER -->
   <div class="cover" id="cover">
     <div class="cover-eyebrow">Maru Online · Digital Diagnostic</div>
@@ -134,7 +129,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
     <div class="cover-meta">
       <div class="meta-item">
         <div class="label">Sector</div>
-        <div class="value"><!-- e.g. Sports / Retail -->[SECTOR]</div>
+        <div class="value">Industrial · Dust &amp; Fume Extraction</div>
       </div>
       <div class="meta-item">
         <div class="label">Prepared by</div>
@@ -142,7 +137,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
       </div>
       <div class="meta-item">
         <div class="label">Overall score</div>
-        <div class="value">[XX] / 100</div>
+        <div class="value">33 / 100</div>
       </div>
     </div>
   </div>
@@ -152,34 +147,34 @@ section{margin-bottom:56px;scroll-margin-top:32px}
     <div class="score-card">
       <div class="domain">Website &amp; Tech</div>
       <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill red-fill" style="width:0%"></div></div>
-        <div class="score-num red-fill" style="background:none;color:#C53030">[XX]</div>
+        <div class="score-bar"><div class="score-fill red-fill" style="width:38%"></div></div>
+        <div class="score-num red-fill" style="background:none;color:#C53030">38</div>
       </div>
-      <div class="score-status status-red">[Critical / Warning / Good]</div>
+      <div class="score-status status-red">Critical</div>
     </div>
     <div class="score-card">
       <div class="domain">Lead Generation</div>
       <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill amber-fill" style="width:0%"></div></div>
-        <div class="score-num" style="color:#B7791F">[XX]</div>
+        <div class="score-bar"><div class="score-fill red-fill" style="width:28%"></div></div>
+        <div class="score-num" style="color:#C53030">28</div>
       </div>
-      <div class="score-status status-amber">[Critical / Warning / Good]</div>
+      <div class="score-status status-red">Critical</div>
     </div>
     <div class="score-card">
       <div class="domain">Search &amp; Visibility</div>
       <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill red-fill" style="width:0%"></div></div>
-        <div class="score-num" style="color:#C53030">[XX]</div>
+        <div class="score-bar"><div class="score-fill red-fill" style="width:22%"></div></div>
+        <div class="score-num" style="color:#C53030">22</div>
       </div>
-      <div class="score-status status-red">[Critical / Warning / Good]</div>
+      <div class="score-status status-red">Critical</div>
     </div>
     <div class="score-card">
       <div class="domain">Operations &amp; Tools</div>
       <div class="score-bar-wrap">
-        <div class="score-bar"><div class="score-fill amber-fill" style="width:0%"></div></div>
-        <div class="score-num" style="color:#B7791F">[XX]</div>
+        <div class="score-bar"><div class="score-fill amber-fill" style="width:48%"></div></div>
+        <div class="score-num" style="color:#B7791F">48</div>
       </div>
-      <div class="score-status status-amber">[Critical / Warning / Good]</div>
+      <div class="score-status status-amber">Needs work</div>
     </div>
   </div>
 
@@ -190,26 +185,53 @@ section{margin-bottom:56px;scroll-margin-top:32px}
       <span class="section-title">Website &amp; Digital Presence</span>
     </div>
     <div class="intro-block">
-      <!-- 2–3 sentence summary of the website situation -->
-      [Intro paragraph: what does the site look like overall, what's the immediate impression, what's the biggest structural problem?]
+      The site presents a credible industrial supplier — clear services (dust &amp; fume extraction, baghouse equipment, steel fabrication) and a real Germiston address. But it is built on <strong>SITE123</strong>, a DIY website builder, and it shows: the secure address silently downgrades to an insecure one, and the page title and search snippet are broken template fragments. The biggest structural problem is that the site looks like a brochure left online rather than a working sales asset — nothing on it is set up to win or measure a single enquiry.
     </div>
 
-    <!-- FINDING TEMPLATE — duplicate for each finding -->
     <div class="finding">
       <div class="finding-header" onclick="toggle(this)">
         <span class="severity sev-critical">Critical</span>
-        <span class="finding-title">[Finding title]</span>
+        <span class="finding-title">Secure address downgrades to an insecure connection</span>
         <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="finding-body">
-        <p>[What is wrong and why it matters in business terms.]</p>
+        <p>When a visitor types the secure <code>https://</code> address, the site redirects them <em>back down</em> to an insecure <code>http://</code> page. For a B2B supplier asking procurement teams and engineers to trust you with project specs, a browser flagging the site as "Not Secure" undercuts credibility before a word is read — and search engines penalise non-secure sites in rankings.</p>
         <div class="detail-label">What we observed</div>
-        <p><code>[specific URL or element]</code> — [specific observation].</p>
+        <p><code>https://cleanspikes.co.za</code> issues a <code>302</code> redirect to <code>http://www.cleanspikes.co.za/</code> — the secure entry point hands visitors to the non-secure version of the site.</p>
         <div class="detail-label">Recommended fix</div>
-        <p>[Concrete, actionable fix. Name the specific thing to do.]</p>
+        <p>Force HTTPS site-wide and 301-redirect every <code>http://</code> and non-www variant to a single canonical <code>https://www</code> address. On a properly configured platform this is a one-time setup, not an ongoing cost.</p>
       </div>
     </div>
-    <!-- /FINDING -->
+
+    <div class="finding">
+      <div class="finding-header" onclick="toggle(this)">
+        <span class="severity sev-critical">Critical</span>
+        <span class="finding-title">Page title and Google snippet are broken template fragments</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="finding-body">
+        <p>The browser tab title and the description Google shows in search results are both unfinished template placeholders. This is the single most visible thing a potential customer sees in a search listing — and right now it reads as broken, which signals "abandoned" or "untrustworthy."</p>
+        <div class="detail-label">What we observed</div>
+        <p>Title tag: <code>| - Advanced Ventilation Solutions</code>. Meta description: <code>| - Breathe Easy, Work Better</code>. The leading <code>|</code> is an empty company-name field that was never filled in the SITE123 template.</p>
+        <div class="detail-label">Recommended fix</div>
+        <p>Write a keyword-led title (e.g. <code>Dust &amp; Fume Extraction Systems · Baghouse Spares — Advanced Ventilation Solutions</code>) and a real 150-character meta description for every page. This directly improves how the business appears in search and how often people click.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-header" onclick="toggle(this)">
+        <span class="severity sev-warning">Warning</span>
+        <span class="finding-title">Images missing alt text; built on a DIY builder with a low ceiling</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="finding-body">
+        <p>The site runs on SITE123, a template builder. It got a presence online quickly, but it caps what's possible — limited control over performance, SEO, integrations and lead capture, and no real ownership of the underlying code. Several product images also lack descriptive alt text, which hurts both accessibility and image search.</p>
+        <div class="detail-label">What we observed</div>
+        <p>Footer reads <code>Powered By SITE123</code>. Of 8 images on the homepage, only 3 carry alt text. No structured data describing the Germiston business location for search engines.</p>
+        <div class="detail-label">Recommended fix</div>
+        <p>Add alt text to every product and equipment image now. Plan a migration to an owned, fast Next.js site that removes the platform ceiling and lets every later recommendation in this report actually be built.</p>
+      </div>
+    </div>
 
   </section>
 
@@ -220,9 +242,54 @@ section{margin-bottom:56px;scroll-margin-top:32px}
       <span class="section-title">Lead Generation</span>
     </div>
     <div class="intro-block">
-      [Intro paragraph: how is the site currently capturing leads, what's working, what's missing?]
+      Right now the site captures leads in exactly one way: it displays a phone number and an email address and hopes the visitor takes action on their own. There is <strong>no enquiry form anywhere on the site — not even on the Contact page</strong> — no WhatsApp, and no call-to-action on the homepage. For a considered B2B purchase like extraction equipment, where a buyer often wants to send a spec or ask a question after hours, this leaks almost every interested visitor who isn't ready to pick up the phone on the spot.
     </div>
-    <!-- Add findings here using the same .finding pattern -->
+
+    <div class="finding">
+      <div class="finding-header" onclick="toggle(this)">
+        <span class="severity sev-critical">Critical</span>
+        <span class="finding-title">No enquiry form anywhere — including the Contact page</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="finding-body">
+        <p>The Contact page lists a phone number, an email and an address — but has no form. Every enquiry therefore depends on the visitor manually copying an email address, opening their mail app, and composing a message from scratch. Most won't. A buyer comparing three suppliers will simply enquire with the two that made it easy.</p>
+        <div class="detail-label">What we observed</div>
+        <p><code>/contact</code> — phone <code>+27 11 012 2940</code> and <code>info@cleanspikes.co.za</code> only. No form fields, no "request a quote," no spec-upload option.</p>
+        <div class="detail-label">Recommended fix</div>
+        <p>Add a short enquiry form (name, company, phone, requirement) on the Contact page and a "Request a quote" call-to-action on every service page. Route submissions straight to the inbox so nothing is missed.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-header" onclick="toggle(this)">
+        <span class="severity sev-critical">Critical</span>
+        <span class="finding-title">No WhatsApp — the default channel for SA B2B enquiries</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="finding-body">
+        <p>In South Africa, WhatsApp is how procurement officers, site foremen and plant managers prefer to make first contact — it's faster than email and less committal than a call. The site offers no WhatsApp option at all, closing off the single highest-intent, lowest-friction channel for this market.</p>
+        <div class="detail-label">What we observed</div>
+        <p>No WhatsApp click-to-chat link or floating button on any page.</p>
+        <div class="detail-label">Recommended fix</div>
+        <p>Add a click-to-chat WhatsApp button (a <code>wa.me</code> link with a pre-filled message) fixed to every page. This is one of the cheapest, highest-return changes available and can be live in a day.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-header" onclick="toggle(this)">
+        <span class="severity sev-warning">Warning</span>
+        <span class="finding-title">Homepage has no call-to-action — navigation only</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="finding-body">
+        <p>The homepage leads with the tagline "Breathe Easy, Work Better" but never tells the visitor what to do next. There's no "Get a quote," no "Talk to an engineer," no "Download our capability profile." A visitor who is ready to act has nowhere obvious to go, so momentum is lost.</p>
+        <div class="detail-label">What we observed</div>
+        <p>Homepage hero and sections rely on the top navigation to move people around; no prominent action button is present.</p>
+        <div class="detail-label">Recommended fix</div>
+        <p>Add one clear primary call-to-action above the fold ("Request a quote") and repeat it at the foot of each service section. Give the visitor a single obvious next step.</p>
+      </div>
+    </div>
+
   </section>
 
   <!-- SECTION 3: OPERATIONS & TOOLS -->
@@ -232,9 +299,39 @@ section{margin-bottom:56px;scroll-margin-top:32px}
       <span class="section-title">Operations &amp; Tools</span>
     </div>
     <div class="intro-block">
-      [Intro paragraph: what tools/platforms are they using, what's the stack, where are the gaps?]
+      The operational footprint is lean: a SITE123 website, a single shared inbox (<code>info@cleanspikes.co.za</code>), and a phone line — across two branches (Germiston and KZN). There's no analytics installed, so the business currently has no way of knowing how many people visit, what they look at, or where enquiries come from. Every lead lands in one mailbox and is handled by hand, with no record of who followed up or what happened next. It works at low volume, but it can't scale and it can't be measured.
     </div>
-    <!-- Add findings here using the same .finding pattern -->
+
+    <div class="finding">
+      <div class="finding-header" onclick="toggle(this)">
+        <span class="severity sev-warning">Warning</span>
+        <span class="finding-title">No website analytics — the business is flying blind</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="finding-body">
+        <p>There's no evidence of Google Analytics or any measurement on the site. Without it, there's no way to know whether the site brings 10 visitors a month or 1,000, which services attract interest, or whether any change actually improves results. Every marketing decision is a guess.</p>
+        <div class="detail-label">What we observed</div>
+        <p>No analytics or tag-manager snippet detected in the page source.</p>
+        <div class="detail-label">Recommended fix</div>
+        <p>Install Google Analytics 4 and set up basic conversion tracking on the new enquiry form and WhatsApp button, so every future improvement can be measured in real enquiries.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-header" onclick="toggle(this)">
+        <span class="severity sev-warning">Warning</span>
+        <span class="finding-title">Single shared inbox, manual handling, no CRM</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="finding-body">
+        <p>All enquiries funnel into one mailbox and are worked manually. There's no shared record of which leads came in, who responded, or what was quoted — so follow-ups slip, and the two branches have no common view of the pipeline. At higher volume this becomes the bottleneck that costs deals.</p>
+        <div class="detail-label">What we observed</div>
+        <p><code>info@cleanspikes.co.za</code> is the only intake channel; no CRM or shared pipeline tool in evidence across the Germiston and KZN branches.</p>
+        <div class="detail-label">Recommended fix</div>
+        <p>Once the enquiry form is live, route submissions into a simple shared CRM (a free HubSpot tier is enough to start) so every lead is logged, assigned and followed up — and nothing falls through the cracks.</p>
+      </div>
+    </div>
+
   </section>
 
   <!-- SECTION 4: OPPORTUNITY -->
@@ -244,7 +341,7 @@ section{margin-bottom:56px;scroll-margin-top:32px}
       <span class="section-title">The Opportunity</span>
     </div>
     <div class="intro-block">
-      [What is the specific revenue or growth opportunity if these gaps are fixed? Frame in Rands or leads/month where possible. Be specific to their sector.]
+      Advanced Ventilation Solutions sells <strong>high-value, considered B2B equipment</strong> — extraction systems and baghouse contracts can run from tens of thousands to several hundred thousand Rand each. At that order value, the maths is simple: <strong>recovering even one extra enquiry a month that currently leaks away can mean six figures in additional annual revenue.</strong> Today the site is a brochure that quietly turns away anyone not ready to phone. Fixing the basics — a secure site that's actually findable in search, a real enquiry form, a WhatsApp button, and analytics to prove what's working — converts that brochure into a sales channel. The first goal isn't more traffic; it's to <strong>stop leaking the demand you already have.</strong> Maru drives the build and the measurement; you keep doing what you do best — engineering the solution.
     </div>
   </section>
 
@@ -258,11 +355,10 @@ section{margin-bottom:56px;scroll-margin-top:32px}
     <div class="phase-card">
       <div class="phase-num">1</div>
       <div>
-        <div class="phase-name">[Phase name — e.g. Discovery call]</div>
-        <div class="phase-desc">[What happens in this phase and what it delivers.]</div>
+        <div class="phase-name">Operations Diagnostic &amp; discovery call</div>
+        <div class="phase-desc">A focused session to confirm the findings in this report and prioritise the fixes by return. You leave with a clear, prioritised scope of what to fix first and why.</div>
         <div class="phase-meta">
-          <span class="phase-tag">[Timeline]</span>
-          <span class="phase-tag price">[Price if applicable]</span>
+          <span class="phase-tag">~1 week</span>
         </div>
       </div>
     </div>
@@ -270,11 +366,21 @@ section{margin-bottom:56px;scroll-margin-top:32px}
     <div class="phase-card">
       <div class="phase-num">2</div>
       <div>
-        <div class="phase-name">[Phase name]</div>
-        <div class="phase-desc">[Description]</div>
+        <div class="phase-name">Quick wins — capture the demand you already have</div>
+        <div class="phase-desc">Force HTTPS, fix the broken page titles and search snippets, add an enquiry form, a WhatsApp click-to-chat button and homepage call-to-action, and install analytics. These changes stop the leak on the current site fast, before any larger rebuild.</div>
         <div class="phase-meta">
-          <span class="phase-tag">[Timeline]</span>
-          <span class="phase-tag price">[Price]</span>
+          <span class="phase-tag">2–3 weeks</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">3</div>
+      <div>
+        <div class="phase-name">Owned site rebuild + lead routing</div>
+        <div class="phase-desc">Migrate off SITE123 onto a fast, owned Next.js site with proper SEO, service pages built to be found, and enquiries routed into a simple CRM shared across the Germiston and KZN branches — so the site becomes a measured sales channel, not a brochure.</div>
+        <div class="phase-meta">
+          <span class="phase-tag">4–6 weeks</span>
         </div>
       </div>
     </div>
