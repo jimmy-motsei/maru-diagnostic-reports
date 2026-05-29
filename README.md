@@ -1,3 +1,4 @@
+<!-- MARU SYSTEM STATUS: 🟢 live | maru-diagnostic-reports | https://maru-diagnostic-reports.vercel.app -->
 # maru-diagnostic-reports
 
 Static HTML repository for Maru Online client diagnostic reports.

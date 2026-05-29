@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clean Spikes — Digital Diagnostic | Maru Online</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0D1B2A;--navy-mid:#1A3A5C;--cyan:#3DB8C6;--cyan-dim:rgba(61,184,198,0.15);
+  --canvas:#FAFAF8;--ink:#0D1B2A;--ink-mid:#4A5568;--ink-light:#718096;
+  --border:rgba(13,27,42,0.1);--red:#C53030;--red-bg:#FFF5F5;
+  --amber:#B7791F;--amber-bg:#FFFBEB;--green:#276749;--green-bg:#F0FFF4;--radius:8px;
+}
+body{font-family:'DM Sans',sans-serif;font-weight:300;background:var(--canvas);color:var(--ink);line-height:1.7;font-size:15px;}
+.tip{border-bottom:1px dotted var(--cyan);color:inherit;cursor:help;position:relative;white-space:nowrap;display:inline;}
+.tip-box{position:fixed;background:var(--navy);color:#fff;font-size:12px;font-weight:400;line-height:1.6;padding:9px 13px;border-radius:6px;width:230px;white-space:normal;pointer-events:none;z-index:99999;display:none;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(0,0,0,0.3);}
+.report-wrap{display:flex;min-height:100vh}
+.sidebar{width:240px;flex-shrink:0;background:var(--navy);position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 0;}
+.sidebar-logo{padding:0 24px 24px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:16px;}
+.sidebar-logo .mark{font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:#fff;letter-spacing:-0.02em;}
+.sidebar-logo .sub{font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;}
+.nav-section{padding:8px 0}
+.nav-label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0 24px;margin-bottom:6px;margin-top:16px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 24px;color:rgba(255,255,255,0.55);text-decoration:none;font-size:13px;font-weight:400;cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,0.05)}
+.nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:rgba(61,184,198,0.08)}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:currentColor;opacity:0.5;}
+.nav-item.active .nav-dot{opacity:1}
+.nav-back{display:flex;align-items:center;gap:8px;padding:10px 24px;color:rgba(255,255,255,0.3);text-decoration:none;font-size:12px;font-weight:400;transition:color 0.15s;border-top:1px solid rgba(255,255,255,0.07);margin-top:16px;}
+.nav-back:hover{color:rgba(255,255,255,0.7)}
+.main{flex:1;max-width:800px;padding:48px 40px}
+.cover{background:var(--navy);border-radius:12px;padding:48px;margin-bottom:48px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;border:1px solid rgba(61,184,198,0.15);}
+.cover::after{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;border:1px solid rgba(61,184,198,0.2);}
+.cover-eyebrow{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px;}
+.cover-title{font-family:'Fraunces',serif;font-size:36px;font-weight:500;color:#fff;line-height:1.2;letter-spacing:-0.02em;margin-bottom:8px;}
+.cover-title span{font-weight:300;font-style:italic}
+.cover-sub{color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:32px;}
+.cover-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;}
+.meta-item .label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:4px;}
+.meta-item .value{font-size:13px;color:rgba(255,255,255,0.8);font-weight:400;}
+.score-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:48px;}
+.score-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:20px;}
+.score-card .domain{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:12px;}
+.score-bar-wrap{display:flex;align-items:center;gap:12px;}
+.score-bar{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.score-fill{height:100%;border-radius:2px;}
+.score-num{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;min-width:36px;text-align:right;}
+.red-fill{background:#C53030}.amber-fill{background:#B7791F}.green-fill{background:#276749}
+.score-status{font-size:11px;margin-top:6px;font-weight:400;}
+.status-red{color:var(--red)}.status-amber{color:var(--amber)}.status-green{color:var(--green)}
+section{margin-bottom:56px;scroll-margin-top:32px}
+.section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.section-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);letter-spacing:0.08em;}
+.section-title{font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-0.01em;}
+.intro-block{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:32px;font-size:14px;line-height:1.8;color:var(--ink-mid);}
+.intro-block strong{color:var(--ink);font-weight:500}
+.finding{border:0.5px solid var(--border);border-radius:var(--radius);background:#fff;margin-bottom:12px;}
+.finding-header{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none;transition:background 0.1s;border-radius:var(--radius) var(--radius) 0 0;}
+.finding-header:hover{background:rgba(0,0,0,0.02)}
+.severity{flex-shrink:0;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;padding:3px 8px;border-radius:4px;}
+.sev-critical{background:var(--red-bg);color:var(--red)}
+.sev-warning{background:var(--amber-bg);color:var(--amber)}
+.sev-positive{background:var(--green-bg);color:var(--green)}
+.finding-title{flex:1;font-size:14px;font-weight:500;color:var(--ink);}
+.chevron{flex-shrink:0;width:16px;height:16px;color:var(--ink-light);transition:transform 0.2s;}
+.finding.open .chevron{transform:rotate(180deg)}
+.finding-body{display:none;padding:0 20px 20px;border-top:0.5px solid var(--border);}
+.finding.open .finding-body{display:block}
+.finding-body p{font-size:14px;color:var(--ink-mid);line-height:1.8;margin-top:16px;}
+.finding-body p+p{margin-top:8px}
+.finding-body .detail-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-top:16px;margin-bottom:4px;}
+.finding-body code{font-family:'DM Mono',monospace;font-size:12px;background:rgba(13,27,42,0.05);padding:2px 6px;border-radius:3px;color:var(--ink);}
+.phase-card{background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;display:grid;grid-template-columns:48px 1fr;gap:20px;}
+.phase-num{font-family:'Fraunces',serif;font-size:28px;font-weight:500;color:var(--cyan);line-height:1;padding-top:2px;}
+.phase-name{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:6px;}
+.phase-desc{font-size:14px;color:var(--ink-mid);line-height:1.75;}
+.phase-meta{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+.phase-tag{font-size:12px;font-weight:500;color:var(--ink-mid);background:var(--canvas);border:0.5px solid var(--border);border-radius:4px;padding:3px 10px;}
+.phase-tag.price{color:var(--navy);border-color:var(--navy-mid)}
+.footer{border-top:1px solid var(--border);padding-top:32px;margin-top:56px;font-size:12px;color:var(--ink-light);line-height:1.8;}
+/* Draft banner */
+.draft-banner{background:var(--amber-bg);border:1px solid var(--amber);border-radius:var(--radius);padding:12px 20px;margin-bottom:32px;font-size:13px;color:var(--amber);display:flex;align-items:center;gap:10px;}
+@media(max-width:720px){
+  .sidebar{display:none}.main{padding:24px 20px}.cover{padding:28px}
+  .cover-title{font-size:26px}.cover-meta{grid-template-columns:1fr 1fr}
+  .score-grid{grid-template-columns:1fr}.phase-card{grid-template-columns:1fr}.phase-num{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="tip-box" id="tipbox"></div>
+<div class="report-wrap">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="mark">Maru Online</div>
+    <div class="sub">Diagnostic Report</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Overview</div>
+    <div class="nav-item active" onclick="scrollTo('cover')"><span class="nav-dot"></span>Cover &amp; scores</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Findings</div>
+    <div class="nav-item" onclick="scrollTo('website')"><span class="nav-dot"></span>Website &amp; digital presence</div>
+    <div class="nav-item" onclick="scrollTo('lead-gen')"><span class="nav-dot"></span>Lead generation</div>
+    <div class="nav-item" onclick="scrollTo('operations')"><span class="nav-dot"></span>Operations &amp; tools</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Proposal</div>
+    <div class="nav-item" onclick="scrollTo('opportunity')"><span class="nav-dot"></span>Opportunity</div>
+    <div class="nav-item" onclick="scrollTo('next-steps')"><span class="nav-dot"></span>Next steps</div>
+  </div>
+  <a class="nav-back" href="/">&#8592; All reports</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- DRAFT BANNER — remove when finalised -->
+  <div class="draft-banner">
+    ⚠️ Draft — internal use only. Not shared with client.
+  </div>
+
+  <!-- COVER -->
+  <div class="cover" id="cover">
+    <div class="cover-eyebrow">Maru Online · Digital Diagnostic</div>
+    <div class="cover-title">Clean Spikes<br><span>Digital Presence Review</span></div>
+    <div class="cover-sub">cleanspikes.co.za · 29 May 2026 · v1.0</div>
+    <div class="cover-meta">
+      <div class="meta-item">
+        <div class="label">Sector</div>
+        <div class="value"><!-- e.g. Sports / Retail -->[SECTOR]</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Prepared by</div>
+        <div class="value">Jimmy Motsei, Maru Online</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Overall score</div>
+        <div class="value">[XX] / 100</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCORE CARDS -->
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="domain">Website &amp; Tech</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill red-fill" style="width:0%"></div></div>
+        <div class="score-num red-fill" style="background:none;color:#C53030">[XX]</div>
+      </div>
+      <div class="score-status status-red">[Critical / Warning / Good]</div>
+    </div>
+    <div class="score-card">
+      <div class="domain">Lead Generation</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill amber-fill" style="width:0%"></div></div>
+        <div class="score-num" style="color:#B7791F">[XX]</div>
+      </div>
+      <div class="score-status status-amber">[Critical / Warning / Good]</div>
+    </div>
+    <div class="score-card">
+      <div class="domain">Search &amp; Visibility</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill red-fill" style="width:0%"></div></div>
+        <div class="score-num" style="color:#C53030">[XX]</div>
+      </div>
+      <div class="score-status status-red">[Critical / Warning / Good]</div>
+    </div>
+    <div class="score-card">
+      <div class="domain">Operations &amp; Tools</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-fill amber-fill" style="width:0%"></div></div>
+        <div class="score-num" style="color:#B7791F">[XX]</div>
+      </div>
+      <div class="score-status status-amber">[Critical / Warning / Good]</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: WEBSITE -->
+  <section id="website">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Website &amp; Digital Presence</span>
+    </div>
+    <div class="intro-block">
+      <!-- 2–3 sentence summary of the website situation -->
+      [Intro paragraph: what does the site look like overall, what's the immediate impression, what's the biggest structural problem?]
+    </div>
+
+    <!-- FINDING TEMPLATE — duplicate for each finding -->
+    <div class="finding">
+      <div class="finding-header" onclick="toggle(this)">
+        <span class="severity sev-critical">Critical</span>
+        <span class="finding-title">[Finding title]</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="finding-body">
+        <p>[What is wrong and why it matters in business terms.]</p>
+        <div class="detail-label">What we observed</div>
+        <p><code>[specific URL or element]</code> — [specific observation].</p>
+        <div class="detail-label">Recommended fix</div>
+        <p>[Concrete, actionable fix. Name the specific thing to do.]</p>
+      </div>
+    </div>
+    <!-- /FINDING -->
+
+  </section>
+
+  <!-- SECTION 2: LEAD GENERATION -->
+  <section id="lead-gen">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Lead Generation</span>
+    </div>
+    <div class="intro-block">
+      [Intro paragraph: how is the site currently capturing leads, what's working, what's missing?]
+    </div>
+    <!-- Add findings here using the same .finding pattern -->
+  </section>
+
+  <!-- SECTION 3: OPERATIONS & TOOLS -->
+  <section id="operations">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Operations &amp; Tools</span>
+    </div>
+    <div class="intro-block">
+      [Intro paragraph: what tools/platforms are they using, what's the stack, where are the gaps?]
+    </div>
+    <!-- Add findings here using the same .finding pattern -->
+  </section>
+
+  <!-- SECTION 4: OPPORTUNITY -->
+  <section id="opportunity">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">The Opportunity</span>
+    </div>
+    <div class="intro-block">
+      [What is the specific revenue or growth opportunity if these gaps are fixed? Frame in Rands or leads/month where possible. Be specific to their sector.]
+    </div>
+  </section>
+
+  <!-- SECTION 5: NEXT STEPS -->
+  <section id="next-steps">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Next Steps</span>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">1</div>
+      <div>
+        <div class="phase-name">[Phase name — e.g. Discovery call]</div>
+        <div class="phase-desc">[What happens in this phase and what it delivers.]</div>
+        <div class="phase-meta">
+          <span class="phase-tag">[Timeline]</span>
+          <span class="phase-tag price">[Price if applicable]</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">2</div>
+      <div>
+        <div class="phase-name">[Phase name]</div>
+        <div class="phase-desc">[Description]</div>
+        <div class="phase-meta">
+          <span class="phase-tag">[Timeline]</span>
+          <span class="phase-tag price">[Price]</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="footer">
+    Prepared by Maru Online &middot; <a href="https://maruonline.com">maruonline.com</a> &middot; Confidential
+  </div>
+
+</main>
+</div>
+
+<script>
+function toggle(header) {
+  const finding = header.parentElement;
+  finding.classList.toggle('open');
+}
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+// Tooltip
+const tipbox = document.getElementById('tipbox');
+document.querySelectorAll('.tip').forEach(el => {
+  el.addEventListener('mouseenter', e => {
+    tipbox.textContent = el.dataset.tip;
+    tipbox.style.display = 'block';
+  });
+  el.addEventListener('mousemove', e => {
+    tipbox.style.left = (e.clientX + 14) + 'px';
+    tipbox.style.top = (e.clientY - 8) + 'px';
+  });
+  el.addEventListener('mouseleave', () => { tipbox.style.display = 'none'; });
+});
+</script>
+</body>
+</html>
